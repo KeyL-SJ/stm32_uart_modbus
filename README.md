@@ -30,17 +30,17 @@ Modbus协议同时规定了二十几种功能码，但是常用的只有8种，�
 7、最终CRC寄存器的值就是CRC的值。
 看着很复杂哈，其实理解了原理就很简单了，这里贴出本项目中CRC校验的代码
 
-  uint16_t modbus_crc16(uint8_t *pbuffer, uint16_t length)
-  {
-      uint16_t crc_high = 0xff;
-      uint16_t crc_low = 0xff;
-      unsigned long index;
-
-      while (length--)
+      uint16_t modbus_crc16(uint8_t *pbuffer, uint16_t length)
       {
-          index = crc_high ^ *pbuffer++;
-          crc_high = crc_low ^ auchCRCHi[index];
-          crc_low = auchCRCLo[index];
+          uint16_t crc_high = 0xff;
+          uint16_t crc_low = 0xff;
+          unsigned long index;
+
+          while (length--)
+          {
+              index = crc_high ^ *pbuffer++;
+              crc_high = crc_low ^ auchCRCHi[index];
+              crc_low = auchCRCLo[index];
+          }
+          return (crc_high << 8 | crc_low);
       }
-      return (crc_high << 8 | crc_low);
-  }
