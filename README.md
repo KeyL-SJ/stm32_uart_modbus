@@ -29,14 +29,7 @@ Modbus协议同时规定了二十几种功能码，但是常用的只有8种，�
 6 、重复第2步到第5步来处理下一个八位，直到所有的字节处理结束。
 7、最终CRC寄存器的值就是CRC的值。
 看着很复杂哈，其实理解了原理就很简单了，这里贴出本项目中CRC校验的代码
-                        /**
-                         * @brief         modbus_crc16校验位计算
-                         * @param[in]     *pbuffer:待校验数据
-                         *                length:待校验数据长度
-                         * @param[out]    16位crc校验位
-                         * @retval        无
-                         * @note          无
-                         */
+
                         uint16_t modbus_crc16(uint8_t *pbuffer, uint16_t length)
                         {
                             uint16_t crc_high = 0xff;
