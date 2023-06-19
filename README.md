@@ -278,3 +278,51 @@ static void modbus_slave_function_0x03(void)
 ```
 
 # 3、STM32作为主机，Modbus Slave作为从机
+
+本系统中使用STM32作为主机，Modbus Slave作为从机模拟modbus通讯功能效果如下：
+
+![image-20230619200459519](C:\Users\86158\AppData\Roaming\Typora\typora-user-images\image-20230619200459519.png)
+
+以功能码0x10为例，在连接成功之后，可以通过keil debug中修改modbus_host_0x10_buffer数组中的数据来改变Modbus Slave中的值
+
+具体代码实现如下：
+
+```c
+/**
+ * @brief         本机作为主机时，modbus 0x10向从机写入多个数据
+ * @param[in]     slave:从机地址
+ *                start_address:要写入数据的寄存器起始地址
+ *                register_num:要写入数据的寄存器数量
+ *                data_length:要写入数据的数据长度 = register_num * 2
+ *                pbuffer:要写入的数据
+ * @param[out]    无
+ * @retval        无
+ * @note          调用该函数时发送一次数据，之后将host_send_flag置1，之后不再发送
+ *                直到接收到从机的应答，将host_send_flag置0，之后可再次发送
+ */
+void modbus_host_weiredata_0x10(uint8_t slave, uint16_t start_address, uint16_t register_num, uint8_t data_length, uint8_t* pbuffer)
+{
+    uint16_t crc;
+    if (modbus_struct.host_send_flag == 0)
+    {
+        modbus_struct.slave_address = slave;
+        modbus_struct.host_send_buffer[0] = slave;
+        modbus_struct.host_send_buffer[1] = 0x10;
+        modbus_struct.host_send_buffer[2] = start_address / 256;
+        modbus_struct.host_send_buffer[3] = start_address % 256;
+        modbus_struct.host_send_buffer[4] = register_num / 256;
+        modbus_struct.host_send_buffer[5] = register_num % 256;
+        modbus_struct.host_send_buffer[6] = data_length;
+        for (int i = 0; i < data_length; i++)
+        {
+            modbus_struct.host_send_buffer[7 + i] = pbuffer[i];
+        }
+        crc = modbus_crc16(&modbus_struct.host_send_buffer[0], 7 + data_length);
+        modbus_struct.host_send_buffer[7 + data_length] = crc / 256;
+        modbus_struct.host_send_buffer[8 + data_length] = crc % 256;
+
+        HAL_UART_Transmit_DMA(&huart1, modbus_struct.host_send_buffer, 9 + data_length);
+        modbus_struct.host_send_flag = 1;
+    }
+}
+```
