@@ -1,14 +1,3 @@
-/********************************************************************************
- * @file    modbus_master.h
- * @author  TenPao Software Team / 林世杰
- * @version V0.0.1.0
- * @date    2023/06/12
- * @brief   modbus_master.c配套头文件
- * @note    Chip:STM32F030C8T6
- *
- *          Copyright (C) 1979-2023 TenPao Ltd. All rights reserved.
- *******************************************************************************/
-
 #ifndef __MODBUS_MASTER_H_
 #define __MODBUS_MASTER_H_ /*!< header guard */
 

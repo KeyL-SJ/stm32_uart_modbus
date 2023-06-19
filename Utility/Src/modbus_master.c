@@ -1,13 +1,3 @@
-/********************************************************************************
- * @file    modbus_master.c
- * @author  TenPao Software Team / 林世杰
- * @version V0.0.1.6
- * @date    2023/06/12
- * @brief   提供功能控制函数
- * @note    Chip:STM32F030C8T6
- *
- *          Copyright (C) 1979-2023 TenPao Ltd. All rights reserved.
- *******************************************************************************/
 #include "modbus_master.h"
 #include "modbus_crc.h"
 
