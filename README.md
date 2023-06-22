@@ -171,7 +171,7 @@ Modbus协议同时规定了二十几种功能码，但是常用的只有8种，�
 
 在开始写代码之前可以先通过Modbus Poll和Modbus Slave两个软件来模拟实验，首先通过Virtual Serial Port Driver Pro虚拟串口软件创建两个虚拟串口
 
-![虚拟串口](D:\Typora\typora-user-images\虚拟串口.png)
+![虚拟串口](typora-user-images\虚拟串口.png)
 
 之后在Modbus Poll和Modbuus Slave中连接虚拟出来的串口，注意波特率等参数的配置，二者要相同
 
