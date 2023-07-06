@@ -288,7 +288,7 @@ static void modbus_slave_function_0x03(void)
 
 以功能码`0x10`为例，在连接成功之后，可以通过keil debug中修改`modbus_host_0x10_buffer`数组中的数据来改变Modbus Slave中的值
 
-具体代码实现如下：
+具体实现的核心代码如下：
 
 ```c
 /**
