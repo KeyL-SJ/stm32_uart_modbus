@@ -1,6 +1,7 @@
 # 基于stm32的uart串口modbus通讯协议
 # modbus-RTU协议
 **Modbus报文帧结构**
+
 一个报文就是一帧数据，一个数据帧就一个报文： 指的是一串完整的指令数据，本质就是一串数据
 Modbus协议在串行链路上的报文格式如下所示：
 ![image](https://github.com/KeyL-SJ/stm32_uart_modbus/assets/78483846/bcec2fe4-3a28-42b3-b2aa-8d75f8fe1f36)
